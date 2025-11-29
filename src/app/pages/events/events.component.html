@@ -1,0 +1,47 @@
+<div class="events-container">
+  <div class="events-header">
+    <h1 class="page-title">Events Management</h1>
+    <button class="btn-primary">+ Create Event</button>
+  </div>
+
+  <div class="search-section">
+    <input 
+      type="text" 
+      class="search-input" 
+      placeholder="Search events..."
+      [(ngModel)]="searchQuery"
+    />
+  </div>
+
+  <div class="events-grid">
+    <div *ngFor="let event of filteredEvents" class="event-card" [ngClass]="event.status.toLowerCase()">
+      <div class="event-header">
+        <h2>{{ event.title }}</h2>
+        <span class="status-badge" [ngClass]="event.status.toLowerCase()">
+          {{ event.status }}
+        </span>
+      </div>
+      
+      <div class="event-details">
+        <p><strong>📅 Date:</strong> {{ event.date }}</p>
+        <p><strong>⏰ Time:</strong> {{ event.time }}</p>
+        <p><strong>📍 Location:</strong> {{ event.location }}</p>
+        <p><strong>👥 Attendees:</strong> {{ event.attendees }}</p>
+      </div>
+
+      <div class="event-description">
+        <p>{{ event.description }}</p>
+      </div>
+
+      <div class="event-actions">
+        <button class="btn-small btn-edit">Edit</button>
+        <button class="btn-small btn-view">View Details</button>
+        <button class="btn-small btn-delete">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="filteredEvents.length === 0" class="no-events">
+    <p>No events found</p>
+  </div>
+</div>

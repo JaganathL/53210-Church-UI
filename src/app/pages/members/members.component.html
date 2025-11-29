@@ -1,0 +1,49 @@
+<div class="members-container">
+  <div class="members-header">
+    <h1 class="page-title">Members Management</h1>
+    <button class="btn-primary">+ Add New Member</button>
+  </div>
+
+  <div class="search-section">
+    <input 
+      type="text" 
+      class="search-input" 
+      placeholder="Search members by name or email..."
+      [(ngModel)]="searchQuery"
+    />
+  </div>
+
+  <div class="section-card">
+    <table class="members-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Status</th>
+          <th>Joined Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let member of filteredMembers" [ngClass]="{ 'inactive': member.status === 'Inactive' }">
+          <td><strong>{{ member.name }}</strong></td>
+          <td>{{ member.email }}</td>
+          <td>{{ member.phone }}</td>
+          <td>
+            <span class="badge" [ngClass]="member.status.toLowerCase()">
+              {{ member.status }}
+            </span>
+          </td>
+          <td>{{ member.joined }}</td>
+          <td>
+            <div class="action-buttons">
+              <button class="btn-small btn-edit">Edit</button>
+              <button class="btn-small btn-delete">Delete</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

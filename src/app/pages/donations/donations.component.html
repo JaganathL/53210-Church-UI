@@ -1,0 +1,67 @@
+<div class="donations-container">
+  <div class="donations-header">
+    <h1 class="page-title">Donations & Giving</h1>
+    <button class="btn-primary">+ Record Donation</button>
+  </div>
+
+  <div class="summary-cards">
+    <div class="summary-card">
+      <h3>Total Donations</h3>
+      <p class="amount">${{ totalDonations | number: '1.2-2' }}</p>
+    </div>
+    <div class="summary-card">
+      <h3>Number of Donors</h3>
+      <p class="amount">{{ donations.length }}</p>
+    </div>
+    <div class="summary-card">
+      <h3>Average Donation</h3>
+      <p class="amount">${{ (totalDonations / donations.length) | number: '1.2-2' }}</p>
+    </div>
+  </div>
+
+  <div class="search-section">
+    <input 
+      type="text" 
+      class="search-input" 
+      placeholder="Search donations by donor or purpose..."
+      [(ngModel)]="searchQuery"
+    />
+  </div>
+
+  <div class="section-card">
+    <table class="donations-table">
+      <thead>
+        <tr>
+          <th>Donor Name</th>
+          <th>Amount</th>
+          <th>Date</th>
+          <th>Purpose</th>
+          <th>Method</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let donation of filteredDonations">
+          <td><strong>{{ donation.donor }}</strong></td>
+          <td class="amount">${{ donation.amount | number: '1.2-2' }}</td>
+          <td>{{ donation.date }}</td>
+          <td>
+            <span class="purpose-badge">{{ donation.purpose }}</span>
+          </td>
+          <td>{{ donation.method }}</td>
+          <td>
+            <div class="action-buttons">
+              <button class="btn-small btn-view">View</button>
+              <button class="btn-small btn-delete">Delete</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="total-row">
+      <strong>Total (Filtered):</strong>
+      <strong class="amount">${{ totalFiltered | number: '1.2-2' }}</strong>
+    </div>
+  </div>
+</div>

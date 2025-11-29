@@ -1,0 +1,424 @@
+<div class="marriage-register-container">
+  <!-- Header Section -->
+  <div class="register-header">
+    <div class="header-left">
+      <h1 class="page-title">Marriage Register</h1>
+      <p class="header-subtitle">Manage marriage records</p>
+    </div>
+    <button class="btn-add-new" (click)="onAddNew()">+ Add New Record</button>
+  </div>
+
+  <!-- Error Message -->
+  <div *ngIf="errorMessage" class="alert alert-error">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Success Message -->
+  <div *ngIf="successMessage" class="alert alert-success">
+    {{ successMessage }}
+  </div>
+
+  <!-- Search and Filter Section -->
+  <div class="search-filter-section">
+    <div class="search-box">
+      <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <circle cx="11" cy="11" r="8"></circle>
+        <path d="m21 21-4.35-4.35"></path>
+      </svg>
+      <input 
+        type="text" 
+        class="search-input" 
+        placeholder="Search by groom, bride, or date..."
+        [(ngModel)]="searchQuery"
+        (input)="onSearchChange()"
+      />
+    </div>
+    <button class="btn-filter">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <line x1="4" y1="6" x2="20" y2="6"></line>
+        <line x1="4" y1="12" x2="20" y2="12"></line>
+        <line x1="4" y1="18" x2="20" y2="18"></line>
+      </svg>
+      Filter
+    </button>
+  </div>
+
+  <!-- Modal Overlay -->
+  <div *ngIf="showModal" class="modal-overlay" (click)="onCancel()"></div>
+
+  <!-- Add Marriage Record Modal -->
+  <div *ngIf="showModal" class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>{{ isEditMode ? 'Edit Marriage Record' : 'Add Marriage Record' }}</h2>
+        <button class="btn-close" (click)="onCancel()">×</button>
+      </div>
+
+      <form [formGroup]="marriageForm" class="modal-form">
+        <!-- Marriage Details Section -->
+        <div class="form-section">
+          <h3 class="section-title">Marriage Details</h3>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="dateOfMarriage">Date of Marriage <span class="required">*</span></label>
+              <div class="input-with-icon">
+                <svg class="calendar-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+                <input 
+                  type="date" 
+                  id="dateOfMarriage"
+                  formControlName="dateOfMarriage"
+                  class="form-input"
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="solemnizedBy">Solemnized By <span class="required">*</span></label>
+              <input 
+                type="text" 
+                id="solemnizedBy"
+                formControlName="solemnizedBy"
+                placeholder="Priest/Pastor name"
+                class="form-input"
+              />
+            </div>
+          </div>
+
+          <div class="form-group full-width">
+            <label for="venueResidence">Venue / Residence <span class="required">*</span></label>
+            <div class="input-with-icon">
+              <svg class="calendar-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+              <input 
+                type="text" 
+                id="venueResidence"
+                formControlName="venueResidence"
+                placeholder="Enter venue or residence"
+                class="form-input"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Groom Information Section -->
+        <div class="form-section">
+          <h3 class="section-title">Groom Information</h3>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="groomChristianName">Christian Name <span class="required">*</span></label>
+              <input 
+                type="text" 
+                id="groomChristianName"
+                formControlName="groomChristianName"
+                placeholder="First name"
+                class="form-input"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="groomSurname">Surname <span class="required">*</span></label>
+              <input 
+                type="text" 
+                id="groomSurname"
+                formControlName="groomSurname"
+                placeholder="Last name"
+                class="form-input"
+              />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="groomDateOfBirth">Date of Birth <span class="required">*</span></label>
+              <div class="input-with-icon">
+                <svg class="calendar-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+                <input 
+                  type="date" 
+                  id="groomDateOfBirth"
+                  formControlName="groomDateOfBirth"
+                  class="form-input"
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="groomAge">Age <span class="required">*</span></label>
+              <input 
+                type="number" 
+                id="groomAge"
+                formControlName="groomAge"
+                placeholder="Age"
+                class="form-input"
+              />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="groomRankOfProfession">Rank of Profession <span class="required">*</span></label>
+              <input 
+                type="text" 
+                id="groomRankOfProfession"
+                formControlName="groomRankOfProfession"
+                placeholder="Profession/Occupation"
+                class="form-input"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="groomCondition">Condition <span class="required">*</span></label>
+              <input 
+                type="text" 
+                id="groomCondition"
+                formControlName="groomCondition"
+                placeholder="Status/Condition"
+                class="form-input"
+              />
+            </div>
+          </div>
+
+          <div class="form-group full-width">
+            <label for="groomFatherName">Father's Name & Surname <span class="required">*</span></label>
+            <input 
+              type="text" 
+              id="groomFatherName"
+              formControlName="groomFatherName"
+              placeholder="Father's full name"
+              class="form-input"
+            />
+          </div>
+        </div>
+
+        <!-- Bride Information Section -->
+        <div class="form-section">
+          <h3 class="section-title">Bride Information</h3>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="brideChristianName">Christian Name <span class="required">*</span></label>
+              <input 
+                type="text" 
+                id="brideChristianName"
+                formControlName="brideChristianName"
+                placeholder="First name"
+                class="form-input"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="brideSurname">Surname <span class="required">*</span></label>
+              <input 
+                type="text" 
+                id="brideSurname"
+                formControlName="brideSurname"
+                placeholder="Last name"
+                class="form-input"
+              />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="brideDateOfBirth">Date of Birth <span class="required">*</span></label>
+              <div class="input-with-icon">
+                <svg class="calendar-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+                <input 
+                  type="date" 
+                  id="brideDateOfBirth"
+                  formControlName="brideDateOfBirth"
+                  class="form-input"
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="brideAge">Age <span class="required">*</span></label>
+              <input 
+                type="number" 
+                id="brideAge"
+                formControlName="brideAge"
+                placeholder="Age"
+                class="form-input"
+              />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="brideRankOfProfession">Rank of Profession <span class="required">*</span></label>
+              <input 
+                type="text" 
+                id="brideRankOfProfession"
+                formControlName="brideRankOfProfession"
+                placeholder="Profession/Occupation"
+                class="form-input"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="brideCondition">Condition <span class="required">*</span></label>
+              <input 
+                type="text" 
+                id="brideCondition"
+                formControlName="brideCondition"
+                placeholder="Status/Condition"
+                class="form-input"
+              />
+            </div>
+          </div>
+
+          <div class="form-group full-width">
+            <label for="brideFatherName">Father's Name & Surname <span class="required">*</span></label>
+            <input 
+              type="text" 
+              id="brideFatherName"
+              formControlName="brideFatherName"
+              placeholder="Father's full name"
+              class="form-input"
+            />
+          </div>
+        </div>
+
+        <!-- Form Footer -->
+        <div class="modal-footer">
+          <span class="required-note"><span class="required">*</span> Required fields</span>
+          <div class="form-actions">
+            <button type="button" class="btn-cancel" (click)="onCancel()">Cancel</button>
+            <button type="button" class="btn-save" (click)="onSaveRecord()" [disabled]="!marriageForm.valid">Save Record</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Marriage Records Table -->
+  <div class="records-table-container">
+    <table class="marriage-table">
+      <thead>
+        <tr>
+          <!-- <th>S.No</th> -->
+          <th>Groom Name</th>
+          <th>Bride Name</th>
+          <th>Date</th>
+          <th>Pastor</th>
+          <th>Residence</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let record of filteredRecords">
+          <!-- <td class="serial-no">{{ record.serialNo }}</td> -->
+          
+          <td class="groom-cell">
+            <div class="person-info">
+              <!-- <img [src]="record.groomImage" [alt]="record.groomName" class="person-avatar"> -->
+              <span class="person-name">{{ record.groomName }}</span>
+            </div>
+          </td>
+          
+          <td class="bride-cell">
+            <div class="person-info">
+              <!-- <img [src]="record.brideImage" [alt]="record.brideName" class="person-avatar"> -->
+              <span class="person-name">{{ record.brideName }}</span>
+            </div>
+          </td>
+          
+          <td class="date-cell">{{ record.dateOfMarriage }}</td>
+          <td class="pastor-cell">{{ record.solemnizedBy }}</td>
+          <td class="residence-cell">{{ record.venueResidence }}</td>
+          
+          <td class="action-cell">
+            <div class="action-buttons">
+              <button class="btn-icon btn-view" (click)="onView(record)" title="View">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                  <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+              </button>
+              <button class="btn-icon btn-edit" (click)="onEdit(record)" title="Edit">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                  <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                </svg>
+              </button>
+              <button class="btn-icon btn-delete" (click)="onDelete(record)" title="Delete">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <polyline points="3 6 5 6 21 6"></polyline>
+                  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                </svg>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div *ngIf="filteredRecords.length === 0" class="no-records">
+      <p>No marriage records found</p>
+    </div>
+
+    <!-- Pagination Controls -->
+    <!-- <div class="pagination-section">
+      <div class="pagination-wrapper">
+        <div class="pagination-info">
+          <span class="records-count">{{ totalElements }} Records</span>
+          <span class="page-indicator">Page {{ currentPage + 1 }}/{{ totalPages }}</span>
+        </div>
+        
+        <div class="pagination-controls">
+          <button 
+            class="btn-pagination btn-prev"
+            (click)="onPreviousPage()"
+            [disabled]="!hasPreviousPage"
+            title="Previous Page">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+            <span class="btn-text">Previous</span>
+          </button>
+
+          <div class="page-numbers">
+            <button 
+              *ngFor="let page of getPageNumbers()"
+              class="btn-page-number"
+              [class.active]="page === currentPage"
+              (click)="onGoToPage(page)"
+              [title]="'Go to page ' + (page + 1)">
+              {{ page + 1 }}
+            </button>
+          </div>
+
+          <button 
+            class="btn-pagination btn-next"
+            (click)="onNextPage()"
+            [disabled]="!hasNextPage"
+            title="Next Page">
+            <span class="btn-text">Next</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div> -->
+  </div>
+</div>

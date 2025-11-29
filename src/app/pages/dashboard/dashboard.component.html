@@ -1,0 +1,49 @@
+<div class="dashboard-container">
+  <h1 class="page-title">Dashboard</h1>
+  
+  <!-- Statistics Cards -->
+  <div class="stats-grid">
+    <div *ngFor="let stat of stats" class="stat-card" [style.border-left-color]="stat.color">
+      <div class="stat-icon">{{ stat.icon }}</div>
+      <div class="stat-content">
+        <p class="stat-title">{{ stat.title }}</p>
+        <p class="stat-value">{{ stat.value }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent Members Section -->
+  <div class="section-card">
+    <h2 class="section-title">Recent Members</h2>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Joined Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let member of recentMembers">
+          <td>{{ member.name }}</td>
+          <td>{{ member.email }}</td>
+          <td>{{ member.joined }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Upcoming Events Section -->
+  <div class="section-card">
+    <h2 class="section-title">Upcoming Events</h2>
+    <div class="events-list">
+      <div *ngFor="let event of upcomingEvents" class="event-item">
+        <div class="event-details">
+          <h3>{{ event.title }}</h3>
+          <p>📅 {{ event.date }} • ⏰ {{ event.time }}</p>
+        </div>
+        <button class="btn-register">Register</button>
+      </div>
+    </div>
+  </div>
+</div>
