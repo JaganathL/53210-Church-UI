@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://api.church-management.com'
+  apiUrl: 'https://church-backend-lovat.vercel.app/api'
 };
