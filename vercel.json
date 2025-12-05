@@ -1,12 +1,15 @@
 {
     "version": 2,
     "buildCommand": "npm run build",
-    "outputDirectory": "dist/church-management",
+    "outputDirectory": "dist/church-management/browser",
     "framework": "angular",
-    "rewrites": [
+    "routes": [
         {
-            "source": "/(.*)",
-            "destination": "/index.html"
+            "handle": "filesystem"
+        },
+        {
+            "src": "/.*",
+            "dest": "/index.html"
         }
     ]
 }
