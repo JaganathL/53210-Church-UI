@@ -163,8 +163,14 @@
                                 </div>
                                 <div>
                                     <label class="form-label">Condition</label>
-                                    <input type="text" formControlName="groomCondition" class="form-input"
-                                        placeholder="e.g., Bachelor, Widower">
+                                    <!-- <input type="text" formControlName="groomCondition" class="form-input"
+                                        placeholder="e.g., Bachelor, Widower"> -->
+                                    <select formControlName="groomCondition" class="form-input">
+                                        <option value="">Select Condition</option>
+                                        <option value="Bachelor">Bachelor</option>
+                                        <option value="Widower">Widower</option>
+                                        <option value="Divorcee">Divorcee</option>
+                                    </select>
                                 </div>
                                 <div class="form-grid-full">
                                     <label class="form-label">Father Name <span class="required">*</span></label>
@@ -197,8 +203,14 @@
                                 </div>
                                 <div>
                                     <label class="form-label">Condition</label>
-                                    <input type="text" formControlName="brideCondition" class="form-input"
-                                        placeholder="e.g., Spinster, Widow">
+                                    <!-- <input type="text" formControlName="brideCondition" class="form-input"
+                                        placeholder="e.g., Spinster, Widow"> -->
+                                    <select formControlName="brideCondition" class="form-input">
+                                        <option value="">Select Condition</option>
+                                        <option value="Spinster">Spinster</option>
+                                        <option value="Widow">Widow</option>
+                                        <option value="Divorcee">Divorcee</option>
+                                    </select>
                                 </div>
                                 <div class="form-grid-full">
                                     <label class="form-label">Father Name <span class="required">*</span></label>
