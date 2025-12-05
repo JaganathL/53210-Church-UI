@@ -3,16 +3,17 @@
     <div class="navbar-brand">
       <h1>CSI Church Management</h1>
     </div>
-    <!-- <ul class="navbar-menu">
-      <li><a href="#dashboard">Dashboard</a></li>
-      <li><a href="#members">Members</a></li>
-      <li><a href="#events">Events</a></li>
-      <li><a href="#donations">Donations</a></li>
-      <li><a href="#marriage-register">Marriage Register</a></li>
-      <li><a href="#settings">Settings</a></li>
-    </ul> -->
+    <ul class="navbar-menu">
+      <li><a routerLink="/dashboard" routerLinkActive="active">Dashboard</a></li>
+      <li><a routerLink="/members" routerLinkActive="active">Members</a></li>
+      <li><a routerLink="/events" routerLinkActive="active">Events</a></li>
+      <li><a routerLink="/donations" routerLinkActive="active">Donations</a></li>
+      <li><a routerLink="/marriage-register" routerLinkActive="active">Marriage Register</a></li>
+      <li><a routerLink="/marriage-register-controller" routerLinkActive="active">Marriage Controller</a></li>
+      <li><a routerLink="/baptism-register-controller" routerLinkActive="active">Baptism Controller</a></li>
+    </ul>
   </nav>
-  
+
   <main class="main-content">
     <router-outlet></router-outlet>
   </main>

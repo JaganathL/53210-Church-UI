@@ -1,11 +1,11 @@
-{
-  "/api/*": {
+[
+  {
+    "context": [
+      "/api"
+    ],
     "target": "https://church-record-management-system.onrender.com",
     "secure": false,
     "changeOrigin": true,
-    "pathRewrite": {
-      "^/api": "/api"
-    },
     "logLevel": "debug"
   }
-}
+]

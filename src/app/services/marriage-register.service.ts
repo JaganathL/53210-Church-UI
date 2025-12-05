@@ -5,29 +5,25 @@ import { tap, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 
 export interface MarriageRecord {
-  id?: number;
+  id?: string;
   serialNo?: number;
-  groomName: string;
-  groomImage?: string;
-  brideName: string;
-  brideImage?: string;
   dateOfMarriage: string;
+  groomName: string;
+  brideName: string;
+  placeOfMarriage: string;
+  groomFather: string;
+  brideFather: string;
   solemnizedBy: string;
-  venueResidence: string;
-  groomChristianName?: string;
-  groomSurname?: string;
-  groomDateOfBirth?: string;
-  groomAge?: number;
-  groomRankOfProfession?: string;
+  pastorate?: string;
+  groomDob?: string;
+  brideDob?: string;
   groomCondition?: string;
-  groomFatherName?: string;
-  brideChristianName?: string;
-  brideSurname?: string;
-  brideDateOfBirth?: string;
-  brideAge?: number;
-  brideRankOfProfession?: string;
   brideCondition?: string;
-  brideFatherName?: string;
+  groomProfession?: string;
+  brideProfession?: string;
+  groomResidence?: string;
+  brideResidence?: string;
+  witnesses?: any;
 }
 
 export interface PaginationParams {
@@ -52,8 +48,8 @@ export interface ApiPaginatedResponse {
   providedIn: 'root'
 })
 export class MarriageRegisterService {
-  private apiUrl = 'https://church-record-management-system.onrender.com/api/marriage-register';
-  
+  private apiUrl = '/api/marriage-register/list';
+
   private marriageRecordsSubject = new BehaviorSubject<MarriageRecord[]>([]);
   public marriageRecords$ = this.marriageRecordsSubject.asObservable();
 
@@ -85,7 +81,7 @@ export class MarriageRegisterService {
   getAllMarriageRecords(params?: PaginationParams): Observable<ApiPaginatedResponse> {
     this.loadingSubject.next(true);
     const queryParams = { ...this.defaultParams, ...params };
-    
+
     let httpParams = new HttpParams();
     httpParams = httpParams.set('page', queryParams.page?.toString() || '0');
     httpParams = httpParams.set('size', queryParams.size?.toString() || '10');
@@ -94,7 +90,7 @@ export class MarriageRegisterService {
 
     console.log('Fetching from API:', this.apiUrl);
 
-    return this.http.get<ApiPaginatedResponse>(this.apiUrl, { 
+    return this.http.get<ApiPaginatedResponse>(this.apiUrl, {
       params: httpParams
     })
       .pipe(
@@ -109,7 +105,7 @@ export class MarriageRegisterService {
           console.error('Error fetching marriage records:', error);
           this.errorSubject.next(`Failed to load marriage records: ${error.message}`);
           this.loadingSubject.next(false);
-          
+
           // Return empty response on error
           return of({
             content: [],
@@ -128,9 +124,9 @@ export class MarriageRegisterService {
    * Get marriage record by ID
    * API: GET /api/marriage-register/{id}
    */
-  getMarriageRecordById(id: number): Observable<MarriageRecord> {
+  getMarriageRecordById(id: string): Observable<MarriageRecord> {
     this.loadingSubject.next(true);
-    return this.http.get<MarriageRecord>(`${this.apiUrl}/${id}`)
+    return this.http.get<MarriageRecord>(`/api/marriage-register/id/${id}`)
       .pipe(
         tap(() => {
           this.loadingSubject.next(false);
@@ -151,13 +147,13 @@ export class MarriageRegisterService {
    */
   createMarriageRecord(record: MarriageRecord): Observable<MarriageRecord> {
     this.loadingSubject.next(true);
-    
+
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Accept': 'application/json'
     });
-    
-    return this.http.post<MarriageRecord>(this.apiUrl, record, { headers })
+
+    return this.http.post<MarriageRecord>('https://church-record-management-system.onrender.com/api/marriage-register/create', record, { headers })
       .pipe(
         tap((response: MarriageRecord) => {
           console.log('Marriage record created successfully:', response);
@@ -168,7 +164,7 @@ export class MarriageRegisterService {
         catchError((error) => {
           console.error('Error creating marriage record:', error);
           this.loadingSubject.next(false);
-          
+
           let errorMessage = 'Failed to create marriage record';
           if (error.error?.message) {
             errorMessage = error.error.message;
@@ -181,7 +177,7 @@ export class MarriageRegisterService {
           } else if (error.status === 400) {
             errorMessage = 'Invalid data. Please check the form fields.';
           }
-          
+
           this.errorSubject.next(errorMessage);
           throw error;
         })
@@ -192,15 +188,15 @@ export class MarriageRegisterService {
    * Update an existing marriage record
    * API: PUT /api/marriage-register/{id}
    */
-  updateMarriageRecord(id: number, record: MarriageRecord): Observable<MarriageRecord> {
+  updateMarriageRecord(id: string, record: MarriageRecord): Observable<MarriageRecord> {
     this.loadingSubject.next(true);
-    
+
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Accept': 'application/json'
     });
-    
-    return this.http.put<MarriageRecord>(`${this.apiUrl}/${id}`, record, { headers })
+
+    return this.http.put<MarriageRecord>(`https://church-record-management-system.onrender.com/api/marriage-register/update/${id}`, record, { headers })
       .pipe(
         tap((response: MarriageRecord) => {
           console.log('Marriage record updated successfully:', response);
@@ -211,7 +207,7 @@ export class MarriageRegisterService {
         catchError((error) => {
           console.error('Error updating marriage record:', error);
           this.loadingSubject.next(false);
-          
+
           let errorMessage = 'Failed to update marriage record';
           if (error.error?.message) {
             errorMessage = error.error.message;
@@ -226,7 +222,7 @@ export class MarriageRegisterService {
           } else if (error.status === 404) {
             errorMessage = 'Marriage record not found.';
           }
-          
+
           this.errorSubject.next(errorMessage);
           throw error;
         })
@@ -237,15 +233,15 @@ export class MarriageRegisterService {
    * Delete a marriage record
    * API: DELETE /api/marriage-register/{id}
    */
-  deleteMarriageRecord(id: number): Observable<any> {
+  deleteMarriageRecord(id: string): Observable<any> {
     this.loadingSubject.next(true);
-    
+
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Accept': 'application/json'
     });
-    
-    return this.http.delete(`${this.apiUrl}/${id}`, { headers })
+
+    return this.http.delete(`https://church-record-management-system.onrender.com/api/marriage-register/remove/${id}`, { headers })
       .pipe(
         tap(() => {
           console.log('Marriage record deleted successfully');
@@ -256,7 +252,7 @@ export class MarriageRegisterService {
         catchError((error) => {
           console.error('Error deleting marriage record:', error);
           this.loadingSubject.next(false);
-          
+
           let errorMessage = 'Failed to delete marriage record';
           if (error.error?.message) {
             errorMessage = error.error.message;
@@ -269,7 +265,7 @@ export class MarriageRegisterService {
           } else if (error.status === 404) {
             errorMessage = 'Marriage record not found.';
           }
-          
+
           this.errorSubject.next(errorMessage);
           throw error;
         })
@@ -283,7 +279,7 @@ export class MarriageRegisterService {
   searchMarriageRecords(searchTerm: string, params?: PaginationParams): Observable<ApiPaginatedResponse> {
     this.loadingSubject.next(true);
     const queryParams = { ...this.defaultParams, ...params, search: searchTerm };
-    
+
     let httpParams = new HttpParams();
     httpParams = httpParams.set('page', queryParams.page?.toString() || '0');
     httpParams = httpParams.set('size', queryParams.size?.toString() || '10');

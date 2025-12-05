@@ -16,7 +16,7 @@ export class MarriageRegisterComponent implements OnInit, OnDestroy {
   searchQuery = '';
   showModal = false;
   isEditMode = false;
-  selectedRecordId: number | null = null;
+  selectedRecordId: string | null = null;
   marriageForm: FormGroup;
   isLoading = false;
   errorMessage = '';
@@ -45,22 +45,20 @@ export class MarriageRegisterComponent implements OnInit, OnDestroy {
   ) {
     this.marriageForm = this.fb.group({
       dateOfMarriage: ['', Validators.required],
+      groomName: ['', Validators.required],
+      brideName: ['', Validators.required],
+      placeOfMarriage: ['', Validators.required],
+      groomFather: ['', Validators.required],
+      brideFather: ['', Validators.required],
       solemnizedBy: ['', Validators.required],
-      venueResidence: ['', Validators.required],
-      groomChristianName: ['', Validators.required],
-      groomSurname: ['', Validators.required],
-      groomDateOfBirth: ['', Validators.required],
-      groomAge: ['', Validators.required],
-      groomRankOfProfession: ['', Validators.required],
-      groomCondition: ['', Validators.required],
-      groomFatherName: ['', Validators.required],
-      brideChristianName: ['', Validators.required],
-      brideSurname: ['', Validators.required],
-      brideDateOfBirth: ['', Validators.required],
-      brideAge: ['', Validators.required],
-      brideRankOfProfession: ['', Validators.required],
-      brideCondition: ['', Validators.required],
-      brideFatherName: ['', Validators.required]
+      groomDob: [''],
+      brideDob: [''],
+      groomCondition: [''],
+      brideCondition: [''],
+      groomProfession: [''],
+      brideProfession: [''],
+      groomResidence: [''],
+      brideResidence: ['']
     });
   }
 
@@ -184,14 +182,20 @@ export class MarriageRegisterComponent implements OnInit, OnDestroy {
     // Populate form with existing data
     this.marriageForm.patchValue({
       dateOfMarriage: record.dateOfMarriage || '',
+      groomName: record.groomName || '',
+      brideName: record.brideName || '',
+      placeOfMarriage: record.placeOfMarriage || '',
+      groomFather: record.groomFather || '',
+      brideFather: record.brideFather || '',
       solemnizedBy: record.solemnizedBy || '',
-      venueResidence: record.venueResidence || '',
-      groomChristianName: record.groomChristianName || record.groomName || '',
-      groomSurname: record.groomSurname || '',
-      groomDateOfBirth: record.groomDateOfBirth || '',
-      groomAge: record.groomAge || '',
-      groomRankOfProfession: record.groomRankOfProfession || '',
-      groomCondition: record.groomCondition || ''
+      groomDob: record.groomDob || '',
+      brideDob: record.brideDob || '',
+      groomCondition: record.groomCondition || '',
+      brideCondition: record.brideCondition || '',
+      groomProfession: record.groomProfession || '',
+      brideProfession: record.brideProfession || '',
+      groomResidence: record.groomResidence || '',
+      brideResidence: record.brideResidence || ''
     });
   }
 
@@ -226,27 +230,21 @@ export class MarriageRegisterComponent implements OnInit, OnDestroy {
   onSaveRecord(): void {
     if (this.marriageForm.valid) {
       const formData: MarriageRecord = {
-        groomName: this.marriageForm.get('groomChristianName')?.value + ' ' + this.marriageForm.get('groomSurname')?.value,
-        brideName: this.marriageForm.get('brideChristianName')?.value + ' ' + this.marriageForm.get('brideSurname')?.value,
         dateOfMarriage: this.marriageForm.get('dateOfMarriage')?.value,
+        groomName: this.marriageForm.get('groomName')?.value,
+        brideName: this.marriageForm.get('brideName')?.value,
+        placeOfMarriage: this.marriageForm.get('placeOfMarriage')?.value,
+        groomFather: this.marriageForm.get('groomFather')?.value,
+        brideFather: this.marriageForm.get('brideFather')?.value,
         solemnizedBy: this.marriageForm.get('solemnizedBy')?.value,
-        venueResidence: this.marriageForm.get('venueResidence')?.value,
-        groomChristianName: this.marriageForm.get('groomChristianName')?.value,
-        groomSurname: this.marriageForm.get('groomSurname')?.value,
-        groomDateOfBirth: this.marriageForm.get('groomDateOfBirth')?.value,
-        groomAge: this.marriageForm.get('groomAge')?.value,
-        groomRankOfProfession: this.marriageForm.get('groomRankOfProfession')?.value,
-        groomCondition: this.marriageForm.get('groomCondition')?.value,
-        groomFatherName: this.marriageForm.get('groomFatherName')?.value,
-        brideChristianName: this.marriageForm.get('brideChristianName')?.value,
-        brideSurname: this.marriageForm.get('brideSurname')?.value,
-        brideDateOfBirth: this.marriageForm.get('brideDateOfBirth')?.value,
-        brideAge: this.marriageForm.get('brideAge')?.value,
-        brideRankOfProfession: this.marriageForm.get('brideRankOfProfession')?.value,
-        brideCondition: this.marriageForm.get('brideCondition')?.value,
-        brideFatherName: this.marriageForm.get('brideFatherName')?.value,
-        groomImage: `https://i.pravatar.cc/150?img=${Math.floor(Math.random() * 70)}`,
-        brideImage: `https://i.pravatar.cc/150?img=${Math.floor(Math.random() * 70)}`
+        groomDob: this.marriageForm.get('groomDob')?.value || null,
+        brideDob: this.marriageForm.get('brideDob')?.value || null,
+        groomCondition: this.marriageForm.get('groomCondition')?.value || null,
+        brideCondition: this.marriageForm.get('brideCondition')?.value || null,
+        groomProfession: this.marriageForm.get('groomProfession')?.value || null,
+        brideProfession: this.marriageForm.get('brideProfession')?.value || null,
+        groomResidence: this.marriageForm.get('groomResidence')?.value || null,
+        brideResidence: this.marriageForm.get('brideResidence')?.value || null
       };
 
       if (this.isEditMode && this.selectedRecordId) {
@@ -334,7 +332,7 @@ export class MarriageRegisterComponent implements OnInit, OnDestroy {
    * Sort by field
    */
   onSort(field: string): void {
-    const newSortDir: 'ASC' | 'DESC' = 
+    const newSortDir: 'ASC' | 'DESC' =
       field === this.currentSortField && this.currentSortDir === 'DESC' ? 'ASC' : 'DESC';
     this.currentSortField = field;
     this.currentSortDir = newSortDir;

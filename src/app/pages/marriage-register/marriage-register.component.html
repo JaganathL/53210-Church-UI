@@ -25,13 +25,8 @@
         <circle cx="11" cy="11" r="8"></circle>
         <path d="m21 21-4.35-4.35"></path>
       </svg>
-      <input 
-        type="text" 
-        class="search-input" 
-        placeholder="Search by groom, bride, or date..."
-        [(ngModel)]="searchQuery"
-        (input)="onSearchChange()"
-      />
+      <input type="text" class="search-input" placeholder="Search by groom, bride, or date..." [(ngModel)]="searchQuery"
+        (input)="onSearchChange()" />
     </div>
     <button class="btn-filter">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -58,7 +53,7 @@
         <!-- Marriage Details Section -->
         <div class="form-section">
           <h3 class="section-title">Marriage Details</h3>
-          
+
           <div class="form-row">
             <div class="form-group">
               <label for="dateOfMarriage">Date of Marriage <span class="required">*</span></label>
@@ -69,24 +64,14 @@
                   <line x1="8" y1="2" x2="8" y2="6"></line>
                   <line x1="3" y1="10" x2="21" y2="10"></line>
                 </svg>
-                <input 
-                  type="date" 
-                  id="dateOfMarriage"
-                  formControlName="dateOfMarriage"
-                  class="form-input"
-                />
+                <input type="date" id="dateOfMarriage" formControlName="dateOfMarriage" class="form-input" />
               </div>
             </div>
 
             <div class="form-group">
               <label for="solemnizedBy">Solemnized By <span class="required">*</span></label>
-              <input 
-                type="text" 
-                id="solemnizedBy"
-                formControlName="solemnizedBy"
-                placeholder="Priest/Pastor name"
-                class="form-input"
-              />
+              <input type="text" id="solemnizedBy" formControlName="solemnizedBy" placeholder="Priest/Pastor name"
+                class="form-input" />
             </div>
           </div>
 
@@ -97,13 +82,8 @@
                 <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
                 <circle cx="12" cy="10" r="3"></circle>
               </svg>
-              <input 
-                type="text" 
-                id="venueResidence"
-                formControlName="venueResidence"
-                placeholder="Enter venue or residence"
-                class="form-input"
-              />
+              <input type="text" id="venueResidence" formControlName="venueResidence"
+                placeholder="Enter venue or residence" class="form-input" />
             </div>
           </div>
         </div>
@@ -111,28 +91,18 @@
         <!-- Groom Information Section -->
         <div class="form-section">
           <h3 class="section-title">Groom Information</h3>
-          
+
           <div class="form-row">
             <div class="form-group">
               <label for="groomChristianName">Christian Name <span class="required">*</span></label>
-              <input 
-                type="text" 
-                id="groomChristianName"
-                formControlName="groomChristianName"
-                placeholder="First name"
-                class="form-input"
-              />
+              <input type="text" id="groomChristianName" formControlName="groomChristianName" placeholder="First name"
+                class="form-input" />
             </div>
 
             <div class="form-group">
               <label for="groomSurname">Surname <span class="required">*</span></label>
-              <input 
-                type="text" 
-                id="groomSurname"
-                formControlName="groomSurname"
-                placeholder="Last name"
-                class="form-input"
-              />
+              <input type="text" id="groomSurname" formControlName="groomSurname" placeholder="Last name"
+                class="form-input" />
             </div>
           </div>
 
@@ -146,88 +116,52 @@
                   <line x1="8" y1="2" x2="8" y2="6"></line>
                   <line x1="3" y1="10" x2="21" y2="10"></line>
                 </svg>
-                <input 
-                  type="date" 
-                  id="groomDateOfBirth"
-                  formControlName="groomDateOfBirth"
-                  class="form-input"
-                />
+                <input type="date" id="groomDateOfBirth" formControlName="groomDateOfBirth" class="form-input" />
               </div>
             </div>
 
             <div class="form-group">
               <label for="groomAge">Age <span class="required">*</span></label>
-              <input 
-                type="number" 
-                id="groomAge"
-                formControlName="groomAge"
-                placeholder="Age"
-                class="form-input"
-              />
+              <input type="number" id="groomAge" formControlName="groomAge" placeholder="Age" class="form-input" />
             </div>
           </div>
 
           <div class="form-row">
             <div class="form-group">
               <label for="groomRankOfProfession">Rank of Profession <span class="required">*</span></label>
-              <input 
-                type="text" 
-                id="groomRankOfProfession"
-                formControlName="groomRankOfProfession"
-                placeholder="Profession/Occupation"
-                class="form-input"
-              />
+              <input type="text" id="groomRankOfProfession" formControlName="groomRankOfProfession"
+                placeholder="Profession/Occupation" class="form-input" />
             </div>
 
             <div class="form-group">
               <label for="groomCondition">Condition <span class="required">*</span></label>
-              <input 
-                type="text" 
-                id="groomCondition"
-                formControlName="groomCondition"
-                placeholder="Status/Condition"
-                class="form-input"
-              />
+              <input type="text" id="groomCondition" formControlName="groomCondition" placeholder="Status/Condition"
+                class="form-input" />
             </div>
           </div>
 
           <div class="form-group full-width">
             <label for="groomFatherName">Father's Name & Surname <span class="required">*</span></label>
-            <input 
-              type="text" 
-              id="groomFatherName"
-              formControlName="groomFatherName"
-              placeholder="Father's full name"
-              class="form-input"
-            />
+            <input type="text" id="groomFatherName" formControlName="groomFatherName" placeholder="Father's full name"
+              class="form-input" />
           </div>
         </div>
 
         <!-- Bride Information Section -->
         <div class="form-section">
           <h3 class="section-title">Bride Information</h3>
-          
+
           <div class="form-row">
             <div class="form-group">
               <label for="brideChristianName">Christian Name <span class="required">*</span></label>
-              <input 
-                type="text" 
-                id="brideChristianName"
-                formControlName="brideChristianName"
-                placeholder="First name"
-                class="form-input"
-              />
+              <input type="text" id="brideChristianName" formControlName="brideChristianName" placeholder="First name"
+                class="form-input" />
             </div>
 
             <div class="form-group">
               <label for="brideSurname">Surname <span class="required">*</span></label>
-              <input 
-                type="text" 
-                id="brideSurname"
-                formControlName="brideSurname"
-                placeholder="Last name"
-                class="form-input"
-              />
+              <input type="text" id="brideSurname" formControlName="brideSurname" placeholder="Last name"
+                class="form-input" />
             </div>
           </div>
 
@@ -241,60 +175,34 @@
                   <line x1="8" y1="2" x2="8" y2="6"></line>
                   <line x1="3" y1="10" x2="21" y2="10"></line>
                 </svg>
-                <input 
-                  type="date" 
-                  id="brideDateOfBirth"
-                  formControlName="brideDateOfBirth"
-                  class="form-input"
-                />
+                <input type="date" id="brideDateOfBirth" formControlName="brideDateOfBirth" class="form-input" />
               </div>
             </div>
 
             <div class="form-group">
               <label for="brideAge">Age <span class="required">*</span></label>
-              <input 
-                type="number" 
-                id="brideAge"
-                formControlName="brideAge"
-                placeholder="Age"
-                class="form-input"
-              />
+              <input type="number" id="brideAge" formControlName="brideAge" placeholder="Age" class="form-input" />
             </div>
           </div>
 
           <div class="form-row">
             <div class="form-group">
               <label for="brideRankOfProfession">Rank of Profession <span class="required">*</span></label>
-              <input 
-                type="text" 
-                id="brideRankOfProfession"
-                formControlName="brideRankOfProfession"
-                placeholder="Profession/Occupation"
-                class="form-input"
-              />
+              <input type="text" id="brideRankOfProfession" formControlName="brideRankOfProfession"
+                placeholder="Profession/Occupation" class="form-input" />
             </div>
 
             <div class="form-group">
               <label for="brideCondition">Condition <span class="required">*</span></label>
-              <input 
-                type="text" 
-                id="brideCondition"
-                formControlName="brideCondition"
-                placeholder="Status/Condition"
-                class="form-input"
-              />
+              <input type="text" id="brideCondition" formControlName="brideCondition" placeholder="Status/Condition"
+                class="form-input" />
             </div>
           </div>
 
           <div class="form-group full-width">
             <label for="brideFatherName">Father's Name & Surname <span class="required">*</span></label>
-            <input 
-              type="text" 
-              id="brideFatherName"
-              formControlName="brideFatherName"
-              placeholder="Father's full name"
-              class="form-input"
-            />
+            <input type="text" id="brideFatherName" formControlName="brideFatherName" placeholder="Father's full name"
+              class="form-input" />
           </div>
         </div>
 
@@ -303,7 +211,8 @@
           <span class="required-note"><span class="required">*</span> Required fields</span>
           <div class="form-actions">
             <button type="button" class="btn-cancel" (click)="onCancel()">Cancel</button>
-            <button type="button" class="btn-save" (click)="onSaveRecord()" [disabled]="!marriageForm.valid">Save Record</button>
+            <button type="button" class="btn-save" (click)="onSaveRecord()" [disabled]="!marriageForm.valid">Save
+              Record</button>
           </div>
         </div>
       </form>
@@ -327,25 +236,25 @@
       <tbody>
         <tr *ngFor="let record of filteredRecords">
           <!-- <td class="serial-no">{{ record.serialNo }}</td> -->
-          
+
           <td class="groom-cell">
             <div class="person-info">
               <!-- <img [src]="record.groomImage" [alt]="record.groomName" class="person-avatar"> -->
               <span class="person-name">{{ record.groomName }}</span>
             </div>
           </td>
-          
+
           <td class="bride-cell">
             <div class="person-info">
               <!-- <img [src]="record.brideImage" [alt]="record.brideName" class="person-avatar"> -->
               <span class="person-name">{{ record.brideName }}</span>
             </div>
           </td>
-          
+
           <td class="date-cell">{{ record.dateOfMarriage }}</td>
           <td class="pastor-cell">{{ record.solemnizedBy }}</td>
-          <td class="residence-cell">{{ record.venueResidence }}</td>
-          
+          <td class="residence-cell">{{ record.placeOfMarriage }}</td>
+
           <td class="action-cell">
             <div class="action-buttons">
               <button class="btn-icon btn-view" (click)="onView(record)" title="View">
