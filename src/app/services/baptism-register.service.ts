@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable, BehaviorSubject, of } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 export interface BaptismRecord {
     id?: string;
@@ -43,7 +44,7 @@ export interface ApiPaginatedResponse {
     providedIn: 'root'
 })
 export class BaptismRegisterService {
-    private apiUrl = '/api/baptism-register/list';
+    private apiUrl = `${environment.apiUrl}/baptism-register/list`;
 
     private baptismRecordsSubject = new BehaviorSubject<BaptismRecord[]>([]);
     public baptismRecords$ = this.baptismRecordsSubject.asObservable();

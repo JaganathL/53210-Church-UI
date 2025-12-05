@@ -3,6 +3,7 @@ import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 export interface MarriageRecord {
   id?: string;
@@ -48,7 +49,7 @@ export interface ApiPaginatedResponse {
   providedIn: 'root'
 })
 export class MarriageRegisterService {
-  private apiUrl = '/api/marriage-register/list';
+  private apiUrl = `${environment.apiUrl}/marriage-register/list`;
 
   private marriageRecordsSubject = new BehaviorSubject<MarriageRecord[]>([]);
   public marriageRecords$ = this.marriageRecordsSubject.asObservable();
